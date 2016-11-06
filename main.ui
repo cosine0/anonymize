@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="input_tab">
      <attribute name="title">
@@ -50,7 +50,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>525</width>
+         <width>522</width>
          <height>209</height>
         </rect>
        </property>
@@ -423,7 +423,7 @@ color: white</string>
      <x>0</x>
      <y>0</y>
      <width>1053</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
