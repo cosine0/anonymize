@@ -360,11 +360,14 @@
       </property>
       <property name="font">
        <font>
+        <family>굴림</family>
         <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
-       <string>%</string>
+       <string>30 %</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -390,7 +393,7 @@
        <rect>
         <x>600</x>
         <y>540</y>
-        <width>291</width>
+        <width>91</width>
         <height>20</height>
        </rect>
       </property>
@@ -404,7 +407,7 @@
 color: white</string>
       </property>
       <property name="text">
-       <string>Dangerous. Use appropriate Settings</string>
+       <string>Dangerous.</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_2">
@@ -418,6 +421,24 @@ color: white</string>
       </property>
       <property name="text">
        <string>Start Over</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>560</y>
+        <width>311</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Use apropriate settings and proceed again</string>
       </property>
      </widget>
     </widget>
