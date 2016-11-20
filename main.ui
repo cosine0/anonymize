@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>x-anonymizer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -50,7 +50,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>525</width>
+         <width>522</width>
          <height>209</height>
         </rect>
        </property>
@@ -99,7 +99,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>475</width>
+         <width>472</width>
          <height>599</height>
         </rect>
        </property>
@@ -433,7 +433,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>475</width>
+         <width>472</width>
          <height>509</height>
         </rect>
        </property>
@@ -831,7 +831,7 @@ color: white</string>
      <x>0</x>
      <y>0</y>
      <width>1053</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
