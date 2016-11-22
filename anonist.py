@@ -1,14 +1,18 @@
+# coding=utf8
 import sys
-import csv
-from PyQt5.QtWidgets import *
-from PyQt5 import uic
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
+from PyQt4 import uic
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 form_class = uic.loadUiType("main.ui")[0]
 
 
 class MyWindow(QMainWindow, form_class):
     def __init__(self):
-        super().__init__()
+        super(MyWindow, self).__init__()
         self.input_file_name = None
         self.output_file_name = None
         self.input_data_set = None
@@ -27,15 +31,12 @@ class MyWindow(QMainWindow, form_class):
 
     def import_clicked(self):
         self.input_file_name = QFileDialog.getOpenFileName(self, filter='CSV File (*.csv)')[0]
-        if not self.input_file_name:
-            return
-        self.input_data_set = get_dataset_from_csv(self.input_file_name)
 
     def save_input_clicked(self):
-        self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')
+        self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
 
     def save_output_clicked(self):
-        self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')
+        self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
 
     def help_clicked(self):
         return QMessageBox.information(self, "Oops", "Not Implemented.", QMessageBox.Ok)
@@ -44,24 +45,8 @@ class MyWindow(QMainWindow, form_class):
         return QMessageBox.information(self, "Oops", "Not Implemented.", QMessageBox.Ok)
 
 
-class DatasetRecord(dict):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.joined_from = ()
-        self.joined_common_attributes = set()
-        self.has_matched = False
-
-
-def get_dataset_from_csv(file_name):
-    data_set = []
-    with open(file_name) as f:
-        for record in csv.DictReader(f):
-            data_set.append(DatasetRecord(**record))
-    return data_set
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    mywindow = MyWindow()
-    mywindow.show()
-    sys.exit(app.exec())
+    myWindow = MyWindow()
+    myWindow.show()
+    app.exec_()
