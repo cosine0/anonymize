@@ -24,11 +24,11 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="input_tab">
      <attribute name="title">
-      <string>Input</string>
+      <string>입력</string>
      </attribute>
      <widget class="QScrollArea" name="scrollArea">
       <property name="geometry">
@@ -76,7 +76,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Attributes</string>
+       <string>속성</string>
       </property>
      </widget>
      <widget class="QScrollArea" name="scrollArea_2">
@@ -119,7 +119,7 @@
          <number>7</number>
         </property>
         <attribute name="horizontalHeaderVisible">
-         <bool>true</bool>
+         <bool>false</bool>
         </attribute>
         <attribute name="verticalHeaderVisible">
          <bool>false</bool>
@@ -289,7 +289,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Levels</string>
+       <string>레벨</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="checkBox">
@@ -302,7 +302,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>k-Anonymity</string>
+       <string>k-익명성</string>
       </property>
       <property name="checked">
        <bool>true</bool>
@@ -318,7 +318,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>l-Diversity</string>
+       <string>l-다양성</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="spinBox">
@@ -392,7 +392,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Run</string>
+       <string>실행</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_5">
@@ -405,13 +405,13 @@
        </rect>
       </property>
       <property name="text">
-       <string>Model</string>
+       <string>모델</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="outpu_tab">
      <attribute name="title">
-      <string>Output</string>
+      <string>출력</string>
      </attribute>
      <widget class="QScrollArea" name="scrollArea_3">
       <property name="geometry">
@@ -715,7 +715,7 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>190</x>
         <y>540</y>
         <width>191</width>
         <height>20</height>
@@ -727,13 +727,13 @@
        </font>
       </property>
       <property name="text">
-       <string>Re-identification Risk:</string>
+       <string>재식별 위험:</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>350</x>
         <y>540</y>
         <width>81</width>
         <height>20</height>
@@ -754,7 +754,7 @@
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>480</x>
         <y>540</y>
         <width>91</width>
         <height>20</height>
@@ -766,15 +766,15 @@
        </font>
       </property>
       <property name="text">
-       <string>Risk Level:</string>
+       <string>위험 수준:</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>600</x>
+        <x>570</x>
         <y>540</y>
-        <width>91</width>
+        <width>41</width>
         <height>20</height>
        </rect>
       </property>
@@ -788,7 +788,7 @@
 color: white</string>
       </property>
       <property name="text">
-       <string>Dangerous.</string>
+       <string>위험.</string>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_2">
@@ -801,15 +801,15 @@ color: white</string>
        </rect>
       </property>
       <property name="text">
-       <string>Start Over</string>
+       <string>돌아가기</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_10">
       <property name="geometry">
        <rect>
-        <x>600</x>
+        <x>570</x>
         <y>560</y>
-        <width>311</width>
+        <width>341</width>
         <height>20</height>
        </rect>
       </property>
@@ -819,7 +819,7 @@ color: white</string>
        </font>
       </property>
       <property name="text">
-       <string>Use apropriate settings and proceed again</string>
+       <string>적절한 설정을 사용하여 다시 비식별화하십시오.</string>
       </property>
      </widget>
     </widget>
@@ -836,17 +836,18 @@ color: white</string>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>&amp;File</string>
+     <string>파일(&amp;F)</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionImport"/>
     <addaction name="actionSave_input"/>
     <addaction name="actionSave_output"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>&amp;Help</string>
+     <string>도움말(&amp;H)</string>
     </property>
     <addaction name="actionHelp_content"/>
     <addaction name="actionAbout"/>
@@ -857,7 +858,7 @@ color: white</string>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionImport">
    <property name="text">
-    <string>&amp;Import...</string>
+    <string>가져오기(&amp;I)…</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -865,7 +866,7 @@ color: white</string>
   </action>
   <action name="actionSave_input">
    <property name="text">
-    <string>Sa&amp;ve input...</string>
+    <string>입력 파일 저장(&amp;S)..</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -873,7 +874,7 @@ color: white</string>
   </action>
   <action name="actionSave_output">
    <property name="text">
-    <string>&amp;Save output...</string>
+    <string>출력 파일 저장(&amp;T)..</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -881,12 +882,12 @@ color: white</string>
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>&amp;Quit</string>
+    <string>종료(&amp;Q)</string>
    </property>
   </action>
   <action name="actionHelp_content">
    <property name="text">
-    <string>&amp;Help content...</string>
+    <string>도움말 항목(&amp;H)...</string>
    </property>
    <property name="shortcut">
     <string>F1</string>
@@ -894,7 +895,7 @@ color: white</string>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>&amp;About...</string>
+    <string>정보(&amp;A)...</string>
    </property>
   </action>
  </widget>
