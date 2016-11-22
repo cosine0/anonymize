@@ -30,13 +30,22 @@ class MyWindow(QMainWindow, form_class):
         self.actionAbout.triggered.connect(self.about_clicked)
 
     def import_clicked(self):
-        self.input_file_name = QFileDialog.getOpenFileName(self, filter='CSV File (*.csv)')[0]
+        try:
+            self.input_file_name = QFileDialog.getOpenFileName(self, filter='CSV File (*.csv)')[0]
+        except IndexError:
+            pass
 
     def save_input_clicked(self):
-        self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
+        try:
+            self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
+        except IndexError:
+            pass
 
     def save_output_clicked(self):
-        self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
+        try:
+            self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
+        except IndexError:
+            pass
 
     def help_clicked(self):
         return QMessageBox.information(self, "Oops", "Not Implemented.", QMessageBox.Ok)
