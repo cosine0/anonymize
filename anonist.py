@@ -31,19 +31,19 @@ class MyWindow(QMainWindow, form_class):
 
     def import_clicked(self):
         try:
-            self.input_file_name = QFileDialog.getOpenFileName(self, filter='CSV File (*.csv)')[0]
+            self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')[0]
         except IndexError:
             pass
 
     def save_input_clicked(self):
         try:
-            self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
+            self.input_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')[0]
         except IndexError:
             pass
 
     def save_output_clicked(self):
         try:
-            self.input_file_name = QFileDialog.getSaveFileName(self, filter='CSV File (*.csv)')[0]
+            self.input_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')[0]
         except IndexError:
             pass
 
