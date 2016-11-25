@@ -3,6 +3,7 @@ import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import uic
+from level import LevelWindow
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -19,15 +20,18 @@ class MyWindow(QMainWindow, form_class):
 
         self.setupUi(self)
 
-        # File 메뉴 바인드
+        # 파일 메뉴 바인드
         self.actionImport.triggered.connect(self.import_clicked)
         self.actionSave_input.triggered.connect(self.save_input_clicked)
         self.actionSave_output.triggered.connect(self.save_output_clicked)
         self.actionQuit.triggered.connect(self.close)
 
-        # Help 메뉴 바인드
+        # 헬프 메뉴 바인드
         self.actionHelp_content.triggered.connect(self.help_clicked)
         self.actionAbout.triggered.connect(self.about_clicked)
+
+        # 레벨 변경 바인드
+        self.levelEditButton.clicked.connect(self.level_edit_button_clicked)
 
     def import_clicked(self):
         try:
@@ -52,6 +56,10 @@ class MyWindow(QMainWindow, form_class):
 
     def about_clicked(self):
         return QMessageBox.information(self, "Oops", "Not Implemented.", QMessageBox.Ok)
+
+    def level_edit_button_clicked(self):
+        self.level_window = LevelWindow()
+        self.level_window.show()
 
 
 if __name__ == '__main__':

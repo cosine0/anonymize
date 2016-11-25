@@ -14,6 +14,9 @@
    <string>x-anonymizer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
@@ -43,7 +46,7 @@
        <string>속성</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_4">
+     <widget class="QTableWidget" name="levelTable">
       <property name="geometry">
        <rect>
         <x>505</x>
@@ -180,7 +183,7 @@
        <string>레벨</string>
       </property>
      </widget>
-     <widget class="QSpinBox" name="spinBox">
+     <widget class="QSpinBox" name="kValueBox">
       <property name="geometry">
        <rect>
         <x>720</x>
@@ -196,7 +199,7 @@
        <number>3</number>
       </property>
      </widget>
-     <widget class="QSpinBox" name="spinBox_2">
+     <widget class="QSpinBox" name="lValueBox">
       <property name="enabled">
        <bool>false</bool>
       </property>
@@ -241,7 +244,7 @@
        <string>l:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="runButton">
       <property name="geometry">
        <rect>
         <x>950</x>
@@ -270,7 +273,7 @@
        <string>모델</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton">
+     <widget class="QRadioButton" name="kRadioButton">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -286,7 +289,7 @@
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_2">
+     <widget class="QRadioButton" name="lRadioButtion">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -299,9 +302,9 @@
        <string>l-다양성</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="levelEditButton">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -312,10 +315,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>변경</string>
+       <string>편집</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="inputTable">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -476,7 +479,7 @@
       <column/>
       <column/>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_3">
+     <widget class="QTableWidget" name="attributeTable">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -491,6 +494,38 @@
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="rowCount">
+       <number>5</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <row/>
+      <column>
+       <property name="text">
+        <string>속성명</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>형식</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>중요도</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="outpu_tab">
