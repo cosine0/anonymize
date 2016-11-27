@@ -8,7 +8,7 @@ from level import LevelWindow
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-form_class = uic.loadUiType("main.ui")[0]
+form_class = uic.loadUiType('main.ui')[0]
 
 
 class MyWindow(QMainWindow, form_class):
@@ -52,14 +52,14 @@ class MyWindow(QMainWindow, form_class):
             pass
 
     def help_clicked(self):
-        return QMessageBox.information(self, "Oops", "Not Implemented.", QMessageBox.Ok)
+        return QMessageBox.information(self, 'Oops', 'Not Implemented.', QMessageBox.Ok)
 
     def about_clicked(self):
-        return QMessageBox.information(self, "Oops", "Not Implemented.", QMessageBox.Ok)
+        return QMessageBox.information(self, 'Oops', 'Not Implemented.', QMessageBox.Ok)
 
     def level_edit_button_clicked(self):
-        self.level_window = LevelWindow()
-        self.level_window.show()
+        level_window = LevelWindow(parent=self)
+        level_window.show()
 
 
 if __name__ == '__main__':

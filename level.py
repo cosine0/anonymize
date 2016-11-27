@@ -6,6 +6,6 @@ form_class = uic.loadUiType("level.ui")[0]
 
 
 class LevelWindow(QWizard, form_class):
-    def __init__(self):
-        super(LevelWindow, self).__init__()
+    def __init__(self, parent=None):
+        super(LevelWindow, self).__init__(parent)
         self.setupUi(self)

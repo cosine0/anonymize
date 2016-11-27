@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1053</width>
-    <height>669</height>
+    <width>1273</width>
+    <height>837</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1051</width>
-      <height>631</height>
+      <width>1271</width>
+      <height>801</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -36,7 +36,7 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>640</x>
         <y>10</y>
         <width>54</width>
         <height>14</height>
@@ -49,10 +49,10 @@
      <widget class="QTableWidget" name="levelTable">
       <property name="geometry">
        <rect>
-        <x>505</x>
-        <y>271</y>
-        <width>531</width>
-        <height>271</height>
+        <x>640</x>
+        <y>340</y>
+        <width>621</width>
+        <height>371</height>
        </rect>
       </property>
       <property name="cornerButtonEnabled">
@@ -173,8 +173,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>250</y>
+        <x>640</x>
+        <y>315</y>
         <width>54</width>
         <height>14</height>
        </rect>
@@ -186,8 +186,8 @@
      <widget class="QSpinBox" name="kValueBox">
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>546</y>
+        <x>920</x>
+        <y>720</y>
         <width>45</width>
         <height>23</height>
        </rect>
@@ -205,8 +205,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>570</y>
+        <x>920</x>
+        <y>744</y>
         <width>45</width>
         <height>23</height>
        </rect>
@@ -218,8 +218,8 @@
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>700</x>
-        <y>550</y>
+        <x>900</x>
+        <y>724</y>
         <width>54</width>
         <height>14</height>
        </rect>
@@ -234,8 +234,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>700</x>
-        <y>575</y>
+        <x>900</x>
+        <y>749</y>
         <width>54</width>
         <height>14</height>
        </rect>
@@ -247,8 +247,8 @@
      <widget class="QPushButton" name="runButton">
       <property name="geometry">
        <rect>
-        <x>950</x>
-        <y>560</y>
+        <x>1150</x>
+        <y>734</y>
         <width>80</width>
         <height>22</height>
        </rect>
@@ -263,8 +263,8 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>510</x>
-        <y>550</y>
+        <x>710</x>
+        <y>724</y>
         <width>54</width>
         <height>14</height>
        </rect>
@@ -276,8 +276,8 @@
      <widget class="QRadioButton" name="kRadioButton">
       <property name="geometry">
        <rect>
-        <x>590</x>
-        <y>550</y>
+        <x>790</x>
+        <y>724</y>
         <width>90</width>
         <height>16</height>
        </rect>
@@ -292,8 +292,8 @@
      <widget class="QRadioButton" name="lRadioButtion">
       <property name="geometry">
        <rect>
-        <x>590</x>
-        <y>573</y>
+        <x>790</x>
+        <y>747</y>
         <width>90</width>
         <height>16</height>
        </rect>
@@ -308,8 +308,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>245</y>
+        <x>670</x>
+        <y>310</y>
         <width>60</width>
         <height>23</height>
        </rect>
@@ -323,8 +323,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>491</width>
-        <height>601</height>
+        <width>631</width>
+        <height>771</height>
        </rect>
       </property>
       <property name="rowCount">
@@ -485,10 +485,10 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>640</x>
         <y>30</y>
-        <width>540</width>
-        <height>211</height>
+        <width>621</width>
+        <height>271</height>
        </rect>
       </property>
       <property name="editTriggers">
@@ -523,7 +523,7 @@
       </column>
       <column>
        <property name="text">
-        <string>중요도</string>
+        <string>식별자/속성자/민감정보</string>
        </property>
       </column>
      </widget>
@@ -949,7 +949,7 @@ color: white</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1053</width>
+     <width>1273</width>
      <height>21</height>
     </rect>
    </property>
