@@ -38,7 +38,7 @@ class MyWindow(QMainWindow, form_class):
 
         # 실행 버튼 바인드
         self.runButton.clicked.connect(self.run_clicked)
-        
+
         # 돌아가기 버튼 바인드
         self.returnButton.clicked.connect(self.return_clicked)
 
@@ -74,7 +74,7 @@ class MyWindow(QMainWindow, form_class):
 
     def run_clicked(self):
         self.mainTab.setCurrentIndex(1)
-    
+
     def return_clicked(self):
         self.mainTab.setCurrentIndex(0)
 
