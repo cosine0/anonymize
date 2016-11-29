@@ -21,13 +21,13 @@ class MyWindow(QMainWindow, form_class):
 
         self.setupUi(self)
 
-        # File 메뉴 바인드
+        # 파일 메뉴 바인드
         self.actionImport.triggered.connect(self.import_clicked)
         self.actionSave_input.triggered.connect(self.save_input_clicked)
         self.actionSave_output.triggered.connect(self.save_output_clicked)
         self.actionQuit.triggered.connect(self.close)
 
-        # Help 메뉴 바인드
+        # 도움말 메뉴 바인드
         self.actionHelp_content.triggered.connect(self.help_clicked)
         self.actionAbout.triggered.connect(self.about_clicked)
         self.help_window = None
