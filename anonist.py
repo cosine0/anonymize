@@ -36,6 +36,12 @@ class MyWindow(QMainWindow, form_class):
         self.levelEditButton.clicked.connect(self.level_edit_button_clicked)
         self.level_window = None
 
+        # 실행 버튼 바인드
+        self.runButton.clicked.connect(self.run_clicked)
+        
+        # 돌아가기 버튼 바인드
+        self.returnButton.clicked.connect(self.return_clicked)
+
     def import_clicked(self):
         try:
             self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')[0]
@@ -65,6 +71,12 @@ class MyWindow(QMainWindow, form_class):
     def level_edit_button_clicked(self):
         self.level_window = LevelWindow()
         self.level_window.show()
+
+    def run_clicked(self):
+        self.mainTab.setCurrentIndex(1)
+    
+    def return_clicked(self):
+        self.mainTab.setCurrentIndex(0)
 
 
 if __name__ == '__main__':

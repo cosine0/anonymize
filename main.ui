@@ -17,7 +17,7 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QTabWidget" name="mainTab">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="input_tab">
      <attribute name="title">
@@ -501,7 +501,7 @@
        <number>5</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>true</bool>
+       <bool>false</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
@@ -611,7 +611,7 @@ color: white</string>
        <string>위험.</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="returnButton">
       <property name="geometry">
        <rect>
         <x>1040</x>
@@ -936,7 +936,7 @@ color: white</string>
   </action>
   <action name="actionSave_input">
    <property name="text">
-    <string>입력 파일 저장(&amp;S)..</string>
+    <string>입력 파일 저장(&amp;S)...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -944,7 +944,7 @@ color: white</string>
   </action>
   <action name="actionSave_output">
    <property name="text">
-    <string>출력 파일 저장(&amp;T)..</string>
+    <string>출력 파일 저장(&amp;T)...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
