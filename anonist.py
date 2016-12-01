@@ -1,10 +1,13 @@
 # coding=utf8
+import unicodecsv
 import sys
+import chardet
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import uic
 from help import HelpWindow
 from level import LevelWindow
+from table import display_data_set_on_table
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -43,22 +46,22 @@ class MyWindow(QMainWindow, form_class):
         self.returnButton.clicked.connect(self.return_clicked)
 
     def import_clicked(self):
-        try:
-            self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')[0]
-        except IndexError:
-            pass
+        self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')
+        if not self.input_file_name:
+            return
+
+        self.import_csv(self.input_file_name)
+        display_data_set_on_table(self.inputTable, self.input_data_set)
 
     def save_input_clicked(self):
-        try:
-            self.input_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')[0]
-        except IndexError:
-            pass
+        self.input_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
+        if not self.input_file_name:
+            return
 
     def save_output_clicked(self):
-        try:
-            self.input_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')[0]
-        except IndexError:
-            pass
+        self.output_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
+        if not self.input_file_name:
+            return
 
     def help_clicked(self):
         self.help_window = HelpWindow()
@@ -77,6 +80,18 @@ class MyWindow(QMainWindow, form_class):
 
     def return_clicked(self):
         self.mainTab.setCurrentIndex(0)
+
+    def import_csv(self, file_name):
+        self.input_data_set = []
+        try:
+            with open(file_name, "rb") as input_file:
+                encoding_detection_result = chardet.detect(input_file.read(4096))
+                encoding = encoding_detection_result['encoding']
+                input_file.seek(0)
+                for row in unicodecsv.reader(input_file, encoding=encoding):
+                    self.input_data_set.append(row)
+        except:
+            QMessageBox.critical(self, u'가져오기 오류', u'파일이 없거나 잘못되었습니다.')
 
 
 if __name__ == '__main__':
