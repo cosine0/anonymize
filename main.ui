@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1273</width>
-    <height>837</height>
+    <height>840</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
       <x>0</x>
       <y>0</y>
       <width>1271</width>
-      <height>801</height>
+      <height>810</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -287,7 +287,7 @@
       <property name="geometry">
        <rect>
         <x>920</x>
-        <y>744</y>
+        <y>748</y>
         <width>45</width>
         <height>23</height>
        </rect>
@@ -316,7 +316,7 @@
       <property name="geometry">
        <rect>
         <x>900</x>
-        <y>749</y>
+        <y>753</y>
         <width>54</width>
         <height>14</height>
        </rect>
@@ -374,7 +374,7 @@
       <property name="geometry">
        <rect>
         <x>790</x>
-        <y>747</y>
+        <y>750</y>
         <width>90</width>
         <height>16</height>
        </rect>
@@ -849,7 +849,7 @@ color: white</string>
      <x>0</x>
      <y>0</y>
      <width>1273</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

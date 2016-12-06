@@ -21,11 +21,16 @@ def display_data_set_on_table(qtable_widget, data_set):
 
 def load_csv_as_data_set(file_name):
     data_set = []
-    with open(file_name, "rb") as input_file:
+    with open(file_name, 'rb') as input_file:
         encoding_detection_result = chardet.detect(input_file.read(4096))
         encoding = encoding_detection_result['encoding']
         input_file.seek(0)
-        for row in unicodecsv.reader(input_file, encoding=encoding):
-            data_set.append(row)
+        for record in unicodecsv.reader(input_file, encoding=encoding):
+            data_set.append(record)
 
-    return data_set
+    return data_set, encoding
+
+
+def save_data_set_as_csv(data_set, file_name, encoding=None):
+    with open(file_name, 'wb') as output_file:
+        unicodecsv.writer(output_file, encoding=encoding).writerows(data_set)

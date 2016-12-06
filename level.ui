@@ -109,11 +109,6 @@
       <string>공백과 대체</string>
      </property>
     </item>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
    </widget>
   </widget>
   <widget class="QWizardPage" name="wizardPage2">

@@ -5,7 +5,7 @@ from PyQt4.QtCore import *
 from PyQt4 import uic
 from help import HelpWindow
 from level import LevelWindow
-from table import display_data_set_on_table, load_csv_as_data_set
+from table import display_data_set_on_table, load_csv_as_data_set, save_data_set_as_csv
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -20,6 +20,7 @@ class MyWindow(QMainWindow, form_class):
         self.output_file_name = None
         self.input_data_set = None
         self.output_data_set = None
+        self.encoding = None
 
         self.setupUi(self)
 
@@ -57,6 +58,11 @@ class MyWindow(QMainWindow, form_class):
         if not self.input_file_name:
             return
 
+        if not self.input_data_set:
+            QMessageBox.critical(self, u'저장 오류', u'입력 데이터가 없습니다.')
+
+        save_data_set_as_csv(self.input_data_set, self.input_file_name, self.encoding)
+
     def save_output_clicked(self):
         self.output_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
         if not self.input_file_name:
@@ -86,7 +92,7 @@ class MyWindow(QMainWindow, form_class):
 
     def import_csv(self, file_name):
         try:
-            self.input_data_set = load_csv_as_data_set(file_name)
+            self.input_data_set, self.encoding = load_csv_as_data_set(file_name)
         except:
             QMessageBox.critical(self, u'가져오기 오류', u'파일이 없거나 잘못되었습니다.')
 
