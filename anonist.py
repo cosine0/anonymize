@@ -1,4 +1,5 @@
 # coding=utf8
+import os
 import sys
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -45,6 +46,12 @@ class MyWindow(QMainWindow, form_class):
         # 돌아가기 버튼 바인드
         self.returnButton.clicked.connect(self.return_clicked)
 
+        # 출력 탭 스크롤 싱크
+        self.outputTableLeft.verticalScrollBar().valueChanged.connect(self.output_left_table_vertically_scrolled)
+        self.outputTableRight.verticalScrollBar().valueChanged.connect(self.output_right_table_vertically_scrolled)
+        self.outputTableLeft.horizontalScrollBar().valueChanged.connect(self.output_left_table_horizontally_scrolled)
+        self.outputTableRight.horizontalScrollBar().valueChanged.connect(self.output_right_table_horizontally_scrolled)
+
     def import_clicked(self):
         self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')
         if not self.input_file_name:
@@ -54,19 +61,26 @@ class MyWindow(QMainWindow, form_class):
         display_data_set_on_table(self.inputTable, self.input_data_set)
 
     def save_input_clicked(self):
+        if not self.input_data_set:
+            QMessageBox.critical(self, u'저장 오류', u'입력 데이터가 없습니다.')
+            return
+
         self.input_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
         if not self.input_file_name:
             return
 
-        if not self.input_data_set:
-            QMessageBox.critical(self, u'저장 오류', u'입력 데이터가 없습니다.')
-
         save_data_set_as_csv(self.input_data_set, self.input_file_name, self.encoding)
 
     def save_output_clicked(self):
-        self.output_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
-        if not self.input_file_name:
+        if not self.output_data_set:
+            QMessageBox.critical(self, u'저장 오류', u'출력 데이터가 없습니다.')
             return
+
+        self.output_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
+        if not self.output_file_name:
+            return
+
+        save_data_set_as_csv(self.output_data_set, self.output_file_name, self.encoding)
 
     def help_clicked(self):
         self.help_window = HelpWindow()
@@ -83,7 +97,7 @@ class MyWindow(QMainWindow, form_class):
     def run_clicked(self):
         QMessageBox.information(self, u"실행", u"처리 중...", QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
-        self.output_data_set = load_csv_as_data_set(u'기본데이터(비식별화).csv')
+        self.output_data_set, _ = load_csv_as_data_set(os.path.join('example', u'기본데이터(비식별화).csv'))
         display_data_set_on_table(self.outputTableLeft, self.input_data_set)
         display_data_set_on_table(self.outputTableRight, self.output_data_set)
 
@@ -95,6 +109,22 @@ class MyWindow(QMainWindow, form_class):
             self.input_data_set, self.encoding = load_csv_as_data_set(file_name)
         except:
             QMessageBox.critical(self, u'가져오기 오류', u'파일이 없거나 잘못되었습니다.')
+
+    def output_left_table_vertically_scrolled(self):
+        scroll_position = self.outputTableLeft.verticalScrollBar().value()
+        self.outputTableRight.verticalScrollBar().setValue(scroll_position)
+
+    def output_right_table_vertically_scrolled(self):
+        scroll_position = self.outputTableRight.verticalScrollBar().value()
+        self.outputTableLeft.verticalScrollBar().setValue(scroll_position)
+
+    def output_left_table_horizontally_scrolled(self):
+        scroll_position = self.outputTableLeft.horizontalScrollBar().value()
+        self.outputTableRight.horizontalScrollBar().setValue(scroll_position)
+
+    def output_right_table_horizontally_scrolled(self):
+        scroll_position = self.outputTableRight.horizontalScrollBar().value()
+        self.outputTableLeft.horizontalScrollBar().setValue(scroll_position)
 
 
 if __name__ == '__main__':

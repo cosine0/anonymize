@@ -33,4 +33,7 @@ def load_csv_as_data_set(file_name):
 
 def save_data_set_as_csv(data_set, file_name, encoding=None):
     with open(file_name, 'wb') as output_file:
-        unicodecsv.writer(output_file, encoding=encoding).writerows(data_set)
+        if encoding is None:
+            unicodecsv.writer(output_file).writerows(data_set)
+        else:
+            unicodecsv.writer(output_file, encoding=encoding).writerows(data_set)
