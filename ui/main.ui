@@ -638,7 +638,7 @@ color: white</string>
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
-        <x>622</x>
+        <x>628</x>
         <y>330</y>
         <width>31</width>
         <height>51</height>
@@ -646,7 +646,8 @@ color: white</string>
       </property>
       <property name="font">
        <font>
-        <pointsize>20</pointsize>
+        <family>Agency FB</family>
+        <pointsize>24</pointsize>
        </font>
       </property>
       <property name="text">
@@ -662,7 +663,7 @@ color: white</string>
      <x>0</x>
      <y>0</y>
      <width>1266</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
