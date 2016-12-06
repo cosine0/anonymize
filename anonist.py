@@ -10,7 +10,7 @@ from table import display_data_set_on_table, load_csv_as_data_set, save_data_set
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-form_class = uic.loadUiType("main.ui")[0]
+form_class = uic.loadUiType('ui/main.ui')[0]
 
 
 class MyWindow(QMainWindow, form_class):

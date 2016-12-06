@@ -2,7 +2,7 @@
 from PyQt4 import uic
 from PyQt4.QtGui import *
 
-form_class = uic.loadUiType('level.ui')[0]
+form_class = uic.loadUiType('ui/level.ui')[0]
 
 
 class LevelWindow(QWizard, form_class):
