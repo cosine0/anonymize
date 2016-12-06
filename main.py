@@ -74,7 +74,7 @@ class MainWindow(QMainWindow, form_class):
         if not self.input_file_name:
             return
 
-        save_data_set_as_csv(self.input_data_set, self.input_file_name, self.encoding)
+        save_data_set_as_csv(self.input_attributes, self.input_data_set, self.input_file_name, self.encoding)
 
     def save_output_clicked(self):
         if not self.output_data_set:
@@ -85,7 +85,7 @@ class MainWindow(QMainWindow, form_class):
         if not self.output_file_name:
             return
 
-        save_data_set_as_csv(self.output_data_set, self.output_file_name, self.encoding)
+        save_data_set_as_csv(self.output_attributes, self.output_data_set, self.output_file_name, self.encoding)
 
     def help_clicked(self):
         self.help_window = HelpWindow()
