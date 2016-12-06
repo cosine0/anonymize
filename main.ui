@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>x-anonymizer</string>
   </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks</set>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -409,10 +415,10 @@
        <number>0</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
      </widget>
      <widget class="QTableWidget" name="attributeTable">
@@ -578,7 +584,7 @@ color: white</string>
        <string>적절한 설정을 사용하여 다시 비식별화하십시오.</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_6">
+     <widget class="QTableWidget" name="outputTableRight">
       <property name="geometry">
        <rect>
         <x>650</x>
@@ -586,6 +592,9 @@ color: white</string>
         <width>611</width>
         <height>721</height>
        </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="rowCount">
        <number>100</number>
@@ -702,7 +711,7 @@ color: white</string>
       <column/>
       <column/>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_2">
+     <widget class="QTableWidget" name="outputTableLeft">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -710,6 +719,9 @@ color: white</string>
         <width>621</width>
         <height>721</height>
        </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="rowCount">
        <number>100</number>

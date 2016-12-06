@@ -1,13 +1,11 @@
 # coding=utf8
-import unicodecsv
 import sys
-import chardet
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import uic
 from help import HelpWindow
 from level import LevelWindow
-from table import display_data_set_on_table
+from table import display_data_set_on_table, load_csv_as_data_set
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -21,6 +19,7 @@ class MyWindow(QMainWindow, form_class):
         self.input_file_name = None
         self.output_file_name = None
         self.input_data_set = None
+        self.output_data_set = None
 
         self.setupUi(self)
 
@@ -76,20 +75,18 @@ class MyWindow(QMainWindow, form_class):
         self.level_window.show()
 
     def run_clicked(self):
+        QMessageBox.information(self, u"실행", u"처리 중...", QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
+        self.output_data_set = load_csv_as_data_set(u'기본데이터(비식별화).csv')
+        display_data_set_on_table(self.outputTableLeft, self.input_data_set)
+        display_data_set_on_table(self.outputTableRight, self.output_data_set)
 
     def return_clicked(self):
         self.mainTab.setCurrentIndex(0)
 
     def import_csv(self, file_name):
-        self.input_data_set = []
         try:
-            with open(file_name, "rb") as input_file:
-                encoding_detection_result = chardet.detect(input_file.read(4096))
-                encoding = encoding_detection_result['encoding']
-                input_file.seek(0)
-                for row in unicodecsv.reader(input_file, encoding=encoding):
-                    self.input_data_set.append(row)
+            self.input_data_set = load_csv_as_data_set(file_name)
         except:
             QMessageBox.critical(self, u'가져오기 오류', u'파일이 없거나 잘못되었습니다.')
 
