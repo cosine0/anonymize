@@ -5,21 +5,24 @@ from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import uic
 from help import HelpWindow
-from level import LevelWindow
+from level import LevelWizard
 from table import display_data_set_on_table, load_csv_as_data_set, save_data_set_as_csv
+from input_file import InputFileWizard
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-form_class = uic.loadUiType('ui/main.ui')[0]
+form_class = uic.loadUiType(os.path.join('ui', 'main.ui'))[0]
 
 
-class MyWindow(QMainWindow, form_class):
+class MainWindow(QMainWindow, form_class):
     def __init__(self):
-        super(MyWindow, self).__init__()
+        super(MainWindow, self).__init__()
         self.input_file_name = None
-        self.output_file_name = None
+        self.input_attributes = None
         self.input_data_set = None
+        self.output_file_name = None
+        self.output_attributes = None
         self.output_data_set = None
         self.encoding = None
 
@@ -38,7 +41,7 @@ class MyWindow(QMainWindow, form_class):
 
         # 레벨 변경 바인드
         self.levelEditButton.clicked.connect(self.level_edit_button_clicked)
-        self.level_window = None
+        self.level_wizard = None
 
         # 실행 버튼 바인드
         self.runButton.clicked.connect(self.run_clicked)
@@ -51,6 +54,9 @@ class MyWindow(QMainWindow, form_class):
         self.outputTableRight.verticalScrollBar().valueChanged.connect(self.output_right_table_vertically_scrolled)
         self.outputTableLeft.horizontalScrollBar().valueChanged.connect(self.output_left_table_horizontally_scrolled)
         self.outputTableRight.horizontalScrollBar().valueChanged.connect(self.output_right_table_horizontally_scrolled)
+
+        # 입력 파일 초기 설정
+        self.input_file_wizard = None
 
     def import_clicked(self):
         self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')
@@ -91,13 +97,14 @@ class MyWindow(QMainWindow, form_class):
                                        QMessageBox.Ok)
 
     def level_edit_button_clicked(self):
-        self.level_window = LevelWindow()
-        self.level_window.show()
+        self.level_wizard = LevelWizard(parent=self)
+        self.level_wizard.show()
 
     def run_clicked(self):
         QMessageBox.information(self, u"실행", u"처리 중...", QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
-        self.output_data_set, _ = load_csv_as_data_set(os.path.join('example', u'기본데이터(비식별화).csv'))
+        self.output_attributes, self.output_data_set, _ = load_csv_as_data_set(
+                                                                    os.path.join('example', u'의료(비식별화).csv'))
         display_data_set_on_table(self.outputTableLeft, self.input_data_set)
         display_data_set_on_table(self.outputTableRight, self.output_data_set)
 
@@ -106,9 +113,12 @@ class MyWindow(QMainWindow, form_class):
 
     def import_csv(self, file_name):
         try:
-            self.input_data_set, self.encoding = load_csv_as_data_set(file_name)
+            self.input_attributes, self.input_data_set, self.encoding = load_csv_as_data_set(file_name)
         except:
             QMessageBox.critical(self, u'가져오기 오류', u'파일이 없거나 잘못되었습니다.')
+
+        self.input_file_wizard = InputFileWizard(self, self.input_attributes)
+        self.input_file_wizard.show()
 
     def output_left_table_vertically_scrolled(self):
         scroll_position = self.outputTableLeft.verticalScrollBar().value()
@@ -129,6 +139,6 @@ class MyWindow(QMainWindow, form_class):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    myWindow = MyWindow()
+    myWindow = MainWindow()
     myWindow.show()
     app.exec_()

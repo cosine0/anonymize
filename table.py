@@ -18,6 +18,8 @@ def display_data_set_on_table(qtable_widget, data_set):
             item = QTableWidgetItem(attribute)
             qtable_widget.setItem(record_index, attribute_index, item)
 
+    qtable_widget.resizeColumnsToContents()
+
 
 def load_csv_as_data_set(file_name):
     data_set = []
@@ -28,7 +30,7 @@ def load_csv_as_data_set(file_name):
         for record in unicodecsv.reader(input_file, encoding=encoding):
             data_set.append(record)
 
-    return data_set, encoding
+    return data_set[0], data_set[1:], encoding
 
 
 def save_data_set_as_csv(data_set, file_name, encoding=None):

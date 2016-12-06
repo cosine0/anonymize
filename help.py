@@ -1,8 +1,9 @@
 # coding=utf8
+import os
 from PyQt4 import uic
 from PyQt4.QtGui import *
 
-form_class = uic.loadUiType("ui/help.ui")[0]
+form_class = uic.loadUiType(os.path.join('ui', 'help.ui'))[0]
 
 
 class HelpWindow(QMainWindow, form_class):
