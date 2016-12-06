@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1266</width>
-    <height>840</height>
+    <height>839</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="input_tab">
      <attribute name="title">
@@ -424,7 +424,7 @@
        <number>0</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>true</bool>
+       <bool>false</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
@@ -455,7 +455,7 @@
        <number>3</number>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>true</bool>
+       <bool>false</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
@@ -638,7 +638,7 @@ color: white</string>
      <widget class="QLabel" name="label_11">
       <property name="geometry">
        <rect>
-        <x>623</x>
+        <x>622</x>
         <y>330</y>
         <width>31</width>
         <height>51</height>
@@ -646,11 +646,11 @@ color: white</string>
       </property>
       <property name="font">
        <font>
-        <pointsize>22</pointsize>
+        <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>🡆</string>
+       <string>⇨</string>
       </property>
      </widget>
     </widget>
