@@ -64,7 +64,6 @@ class MainWindow(QMainWindow, form_class):
             return
 
         self.import_csv(self.input_file_name)
-        display_data_set_on_table(self.inputTable, self.input_data_set)
 
     def save_input_clicked(self):
         if not self.input_data_set:
@@ -93,20 +92,20 @@ class MainWindow(QMainWindow, form_class):
         self.help_window.show()
 
     def about_clicked(self):
-        return QMessageBox.information(self, u"Intorduce", u"이 툴은 개인정보를 비식별 조치하는 툴입니다.\nKITRI fwvaBOB 5th No Jam'.",
-                                       QMessageBox.Ok)
+        return QMessageBox.information(
+            self, u"Intorduce", u"이 툴은 개인정보를 비식별 조치하는 툴입니다.\nKITRI fwvaBOB 5th No Jam'.", QMessageBox.Ok)
 
     def level_edit_button_clicked(self):
         self.level_wizard = LevelWizard(parent=self)
         self.level_wizard.show()
 
     def run_clicked(self):
-        QMessageBox.information(self, u"실행", u"처리 중...", QMessageBox.Ok)
+        QMessageBox.information(self, u'실행', u'처리 중...', QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
         self.output_attributes, self.output_data_set, _ = load_csv_as_data_set(
                                                                     os.path.join('example', u'의료(비식별화).csv'))
-        display_data_set_on_table(self.outputTableLeft, self.input_data_set)
-        display_data_set_on_table(self.outputTableRight, self.output_data_set)
+        display_data_set_on_table(self.outputTableLeft, self.input_attributes, self.input_data_set)
+        display_data_set_on_table(self.outputTableRight, self.output_attributes, self.output_data_set)
 
     def return_clicked(self):
         self.mainTab.setCurrentIndex(0)
@@ -118,7 +117,25 @@ class MainWindow(QMainWindow, form_class):
             QMessageBox.critical(self, u'가져오기 오류', u'파일이 없거나 잘못되었습니다.')
 
         self.input_file_wizard = InputFileWizard(self, self.input_attributes)
+        self.input_file_wizard.finished.connect(self.input_file_wizard_finished)
         self.input_file_wizard.show()
+
+    def input_file_wizard_finished(self, return_value):
+        assert isinstance(self.input_file_wizard.datatypeTable, QTableWidget)
+        column_count = self.input_file_wizard.datatypeTable.rowCount()
+        self.attributeTable.setRowCount(column_count)
+        for attribute_index in xrange(column_count):
+            attribute_name = self.input_file_wizard.datatypeTable.item(attribute_index, 0)
+            self.attributeTable.setItem(attribute_index, 0, QTableWidgetItem(attribute_name.text()))
+
+            datatype_combobox = self.input_file_wizard.datatypeTable.cellWidget(attribute_index, 1)
+            self.attributeTable.setCellWidget(attribute_index, 1, datatype_combobox)
+
+            characteristic_combobox = self.input_file_wizard.characteristicTable.cellWidget(attribute_index, 1)
+            self.attributeTable.setCellWidget(attribute_index, 2, characteristic_combobox)
+
+        self.input_file_wizard.destroy()
+        display_data_set_on_table(self.inputTable, self.input_attributes, self.input_data_set)
 
     def output_left_table_vertically_scrolled(self):
         scroll_position = self.outputTableLeft.verticalScrollBar().value()
