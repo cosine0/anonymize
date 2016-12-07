@@ -58,6 +58,10 @@ class MainWindow(QMainWindow, form_class):
         # 입력 파일 초기 설정
         self.input_file_wizard = None
 
+        # 익명화 모델 선택 토글
+        self.kRadioButton.clicked.connect(self.k_radio_button_clicked)
+        self.lRadioButton.clicked.connect(self.l_radio_button_clicked)
+
     def import_clicked(self):
         self.input_file_name = QFileDialog.getOpenFileName(self, filter=u'CSV 파일 (*.csv)')
         if not self.input_file_name:
@@ -103,7 +107,7 @@ class MainWindow(QMainWindow, form_class):
         QMessageBox.information(self, u'실행', u'처리 중...', QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
         self.output_attributes, self.output_data_set, _ = load_csv_as_data_set(
-                                                                    os.path.join('example', u'의료(비식별화).csv'))
+            os.path.join('example', u'의료(비식별화).csv'))
         display_data_set_on_table(self.outputTableLeft, self.input_attributes, self.input_data_set)
         display_data_set_on_table(self.outputTableRight, self.output_attributes, self.output_data_set)
 
@@ -152,6 +156,14 @@ class MainWindow(QMainWindow, form_class):
     def output_right_table_horizontally_scrolled(self):
         scroll_position = self.outputTableRight.horizontalScrollBar().value()
         self.outputTableLeft.horizontalScrollBar().setValue(scroll_position)
+
+    def k_radio_button_clicked(self):
+        self.kValueBox.setEnabled(True)
+        self.lValueBox.setEnabled(False)
+
+    def l_radio_button_clicked(self):
+        self.lValueBox.setEnabled(True)
+        self.kValueBox.setEnabled(False)
 
 
 if __name__ == '__main__':
