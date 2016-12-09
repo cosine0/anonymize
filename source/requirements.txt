@@ -1,0 +1,3 @@
+chardet
+unicodecsv
+PyQt4

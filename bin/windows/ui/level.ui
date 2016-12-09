@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Wizard</class>
+ <widget class="QWizard" name="Wizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>413</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>레벨</string>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ModernStyle</enum>
+  </property>
+  <widget class="QWizardPage" name="wizardPage1">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>90</y>
+      <width>321</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>비식별화 조치 방법을 선택하십시오.</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>160</y>
+      <width>391</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>휴리스틱 가명화</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>암호화</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>교환</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>전체 총계</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>부분 총계</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>올림/내림</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>재배열</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>삭제</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>랜덤 라운딩</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>범위 조정</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>제어 라운딩</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>새 항목</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>임의 잡음 추가</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>공백과 대체</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QWizardPage" name="wizardPage2">
+   <widget class="QRadioButton" name="radioButton">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>130</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>한국 성씨 비율 적용</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>150</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>균일 비율</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>110</y>
+      <width>56</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>성씨 비율</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Agency FB</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>휴리스틱 가명화</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
