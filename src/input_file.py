@@ -3,7 +3,7 @@ import os
 from PyQt4 import uic
 from PyQt4.QtGui import *
 
-form_class = uic.loadUiType(os.path.join('ui', 'input_file.ui'))[0]
+form_class = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'ui', 'input_file.ui'))[0]
 
 
 class InputFileWizard(QWizard, form_class):

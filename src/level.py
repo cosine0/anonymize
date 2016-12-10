@@ -3,7 +3,7 @@ import os
 from PyQt4 import uic
 from PyQt4.QtGui import *
 
-form_class = uic.loadUiType(os.path.join('ui', 'level.ui'))[0]
+form_class = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'ui', 'level.ui'))[0]
 
 
 class LevelWizard(QWizard, form_class):

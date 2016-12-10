@@ -12,7 +12,7 @@ from input_file import InputFileWizard
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-form_class = uic.loadUiType(os.path.join(u'ui', u'main.ui'))[0]
+form_class = uic.loadUiType(os.path.join(os.path.dirname(__file__), u'ui', u'main.ui'))[0]
 
 
 class MainWindow(QMainWindow, form_class):
@@ -107,7 +107,7 @@ class MainWindow(QMainWindow, form_class):
         QMessageBox.information(self, u'실행', u'처리 중...', QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
         self.output_attributes, self.output_data_set, _ = load_csv_as_data_set(
-            os.path.join(u'example', u'의료(비식별화).csv'))
+            os.path.join(os.path.dirname(__file__), u'example', u'의료(비식별화).csv'))
         display_data_set_on_table(self.outputTableLeft, self.input_attributes, self.input_data_set)
         display_data_set_on_table(self.outputTableRight, self.output_attributes, self.output_data_set)
 

@@ -41,6 +41,16 @@
     </property>
     <item>
      <property name="text">
+      <string>범주화</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>마스킹</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>휴리스틱 가명화</string>
      </property>
     </item>
@@ -86,11 +96,6 @@
     </item>
     <item>
      <property name="text">
-      <string>범위 조정</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>제어 라운딩</string>
      </property>
     </item>
@@ -106,7 +111,7 @@
     </item>
     <item>
      <property name="text">
-      <string>공백과 대체</string>
+      <string>공백/대체</string>
      </property>
     </item>
    </widget>
