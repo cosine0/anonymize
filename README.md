@@ -1,1 +1,1 @@
-windows 바이너리 실행을 위해서는 [Visual C++ 재배포가능 패키지 x86](https://www.microsoft.com/ko-kr/download/confirmation.aspx?id=5555)가 필요합니다.
+windows 바이너리 실행을 위해서는 [Visual C++ 2010 재배포가능 패키지 x86](http s://www.microsoft.com/ko-kr/download/confirmation.aspx?id=5555)가 필요합니다.
