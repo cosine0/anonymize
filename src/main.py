@@ -18,6 +18,7 @@ form_class = uic.loadUiType(os.path.join(os.path.dirname(__file__), u'ui', u'mai
 class MainWindow(QMainWindow, form_class):
     def __init__(self):
         super(MainWindow, self).__init__()
+        
         self.input_file_name = None
         self.input_attributes = None
         self.input_data_set = None
@@ -104,6 +105,15 @@ class MainWindow(QMainWindow, form_class):
         self.level_wizard.show()
 
     def run_clicked(self):
+        assert isinstance(self.attributeTable, QTableWidget)
+        for row_index in xrange(self.attributeTable.rowCount()):
+            attribute_characteristic = self.attributeTable.cellWidget(row_index, 2).currentText()
+            deidentification_method = self.attributeTable.item(row_index, 3).text()
+            if attribute_characteristic == u'식별자' and deidentification_method != u'삭제':
+                if QMessageBox.question(self, u'경고', u'식별자는 삭제가 권장됩니다. 그래도 계속하시겠습니까?',
+                                        QMessageBox.Yes, QMessageBox.No) == QMessageBox.No:
+                    return
+
         QMessageBox.information(self, u'실행', u'처리 중...', QMessageBox.Ok)
         self.mainTab.setCurrentIndex(1)
         self.output_attributes, self.output_data_set, _ = load_csv_as_data_set(

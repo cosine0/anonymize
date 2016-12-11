@@ -17,7 +17,7 @@ class InputFileWizard(QWizard, form_class):
             item = QTableWidgetItem(attribute)
             self.datatypeTable.setItem(attribute_index, 0, item)
             datatype_combobox = QComboBox()
-            datatype_combobox.addItems((u'문자열', u'수', u'날짜'))
+            datatype_combobox.addItems((u'문자열', u'숫자', u'날짜'))
             self.datatypeTable.setCellWidget(attribute_index, 1, datatype_combobox)
 
         self.datatypeTable.resizeColumnsToContents()
