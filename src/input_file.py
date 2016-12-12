@@ -7,11 +7,18 @@ form_class = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'ui', 'input
 
 
 class InputFileWizard(QWizard, form_class):
+    """
+    파일 가져오기 마법사
+    :param parent: 상위 윈도우
+    :param attributes: str들의 list. 각 속성명의 목록
+    """
+
     def __init__(self, parent, attributes):
         super(InputFileWizard, self).__init__(parent)
         self.main_window = parent
         self.setupUi(self)
 
+        # 첫 번째 페이지. 데이터 타입 테이블 생성.
         self.datatypeTable.setRowCount(len(attributes))
         for attribute_index, attribute in enumerate(attributes):
             item = QTableWidgetItem(attribute)
@@ -22,6 +29,7 @@ class InputFileWizard(QWizard, form_class):
 
         self.datatypeTable.resizeColumnsToContents()
 
+        # 두 번째 페이지. 데이터 성격 테이블 생성.
         self.characteristicTable.setRowCount(len(attributes))
         for attribute_index, attribute in enumerate(attributes):
             item = QTableWidgetItem(attribute)

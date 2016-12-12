@@ -7,6 +7,9 @@ form_class = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'ui', 'help.
 
 
 class HelpWindow(QMainWindow, form_class):
+    """
+    도움말 윈도우
+    """
     def __init__(self):
         super(HelpWindow, self).__init__()
         self.setupUi(self)

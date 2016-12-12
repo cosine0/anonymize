@@ -41,7 +41,6 @@ def risk(anonymized, data_types, is_sensitive_information, additional, attribute
 # _anony_origial: 수정 없는 초기의 비식별된 database.
 # _matching: matching set
 # _is_sensitive_original: 수정 없는 초기의 민감 정보
-f = open('result.txt', 'w')
 def get_result(_anony_original, _matching, _is_sensitive_original):
     sensitive_ratio = [dict() for row in range(len(_matching))]
     count = 0
@@ -63,7 +62,6 @@ def get_result(_anony_original, _matching, _is_sensitive_original):
             ratio = float(value) / float(total)
             if ratio > max_ratio:
                 max_ratio = ratio
-        f.write('{}\n'.format(max_ratio))
         if max_ratio >= criterion:
             count += 1
 
