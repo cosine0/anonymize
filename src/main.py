@@ -117,14 +117,17 @@ class MainWindow(QMainWindow, form_class):
         """
         파일>출력 저장 메뉴 버튼 클릭 시 
         """
+        # 출력 데이터가 있는지 확인
         if not self.output_data_set:
             QMessageBox.critical(self, u'저장 오류', u'출력 데이터가 없습니다.')
             return
 
+        # 저장 파일 선택 대화상자 실행
         self.output_file_name = QFileDialog.getSaveFileName(self, filter=u'CSV 파일 (*.csv)')
         if not self.output_file_name:
             return
 
+        # 파일 저장
         save_data_set_as_csv(self.output_attributes, self.output_data_set, self.output_file_name, self.encoding)
 
     def help_clicked(self):
@@ -139,7 +142,7 @@ class MainWindow(QMainWindow, form_class):
         도움말>정보 메뉴 버튼 클릭 시
         """
         return QMessageBox.information(
-            self, u"Intorduce", u"이 툴은 개인정보를 비식별 조치하는 툴입니다.\nKITRI fwvaBOB 5th No Jam'.", QMessageBox.Ok)
+            self, u"Intorduce", u"Deidentipyer.\nKITRI BOB 5th No Jam.\nUnder GNU Public License", QMessageBox.Ok)
 
     def level_edit_button_clicked(self):
         """
