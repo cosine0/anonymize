@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>비식별화 조치 방법을 선택하십시오.</string>
+     <string>비식별 조치 방법을 선택하십시오.</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox">

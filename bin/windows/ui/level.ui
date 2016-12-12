@@ -27,7 +27,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>비식별화 조치 방법을 선택하십시오.</string>
+     <string>비식별 조치 방법을 선택하십시오.</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox">
@@ -39,6 +39,16 @@
       <height>20</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>범주화</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>마스킹</string>
+     </property>
+    </item>
     <item>
      <property name="text">
       <string>휴리스틱 가명화</string>
@@ -86,11 +96,6 @@
     </item>
     <item>
      <property name="text">
-      <string>범위 조정</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>제어 라운딩</string>
      </property>
     </item>
@@ -106,7 +111,7 @@
     </item>
     <item>
      <property name="text">
-      <string>공백과 대체</string>
+      <string>공백/대체</string>
      </property>
     </item>
    </widget>

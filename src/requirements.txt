@@ -1,3 +1,5 @@
 chardet
 unicodecsv
+python-Levenshtein
+numpy
 PyQt4

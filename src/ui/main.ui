@@ -14,7 +14,7 @@
    <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>x-anonymizer</string>
+   <string>Deidentipyer</string>
   </property>
   <property name="dockNestingEnabled">
    <bool>true</bool>
@@ -350,14 +350,14 @@
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>710</x>
+        <x>680</x>
         <y>724</y>
-        <width>54</width>
+        <width>81</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>모델</string>
+       <string>익명화 모델</string>
       </property>
      </widget>
      <widget class="QRadioButton" name="kRadioButton">
@@ -507,7 +507,7 @@
        <string>재식별 위험:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="riskPercentLabel">
       <property name="geometry">
        <rect>
         <x>460</x>
@@ -603,9 +603,9 @@ color: white</string>
       <property name="geometry">
        <rect>
         <x>650</x>
-        <y>0</y>
+        <y>20</y>
         <width>611</width>
-        <height>721</height>
+        <height>701</height>
        </rect>
       </property>
       <property name="editTriggers">
@@ -625,9 +625,9 @@ color: white</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>20</y>
         <width>621</width>
-        <height>721</height>
+        <height>701</height>
        </rect>
       </property>
       <property name="editTriggers">
@@ -660,6 +660,57 @@ color: white</string>
       </property>
       <property name="text">
        <string>⇨</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>3</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>입력 데이터</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>3</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>출력 데이터</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>724</y>
+        <width>111</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>재식별 위험 평가</string>
       </property>
      </widget>
     </widget>

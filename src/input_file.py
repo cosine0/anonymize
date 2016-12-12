@@ -1,4 +1,4 @@
-    # coding=utf8
+# coding=utf8
 import os
 from PyQt4 import uic
 from PyQt4.QtGui import *
