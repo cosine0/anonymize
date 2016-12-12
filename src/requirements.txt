@@ -2,4 +2,5 @@ chardet
 unicodecsv
 python-Levenshtein
 numpy
+statistics
 PyQt4
