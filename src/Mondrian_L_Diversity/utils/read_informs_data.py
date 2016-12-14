@@ -8,9 +8,9 @@ read infroms data
 # Read data and read tree fuctions for INFORMS data
 # user att ['DUID', 'PID', 'DUPERSID', 'DOBMM', 'DOBYY', 'SEX', 'RACEX', 'RACEAX', 'RACEBX', 'RACEWX', 'RACETHNX', 'HISPANX', 'HISPCAT', 'EDUCYEAR', 'Year', 'marry', 'income', 'poverty']
 # condition att ['DUID', 'DUPERSID', 'ICD9CODX', 'year']
-from models.gentree import GenTree
-from models.numrange import NumRange
-from utils.utility import cmp_str
+from ..models.gentree import GenTree
+from ..models.numrange import NumRange
+from ..utils.utility import cmp_str
 import pickle
 import pdb
 
