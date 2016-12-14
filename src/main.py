@@ -5,6 +5,8 @@ import threading
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from PyQt4 import uic
+from Mondrian_L_Diversity import anonymizer
+from Mondrian_L_Diversity.models import gentree
 from help import HelpWindow
 from level import LevelWizard
 from table import display_data_set_on_table, load_csv_as_data_set, save_data_set_as_csv
@@ -157,6 +159,8 @@ class MainWindow(QMainWindow, form_class):
         실행 버튼 클릭 시
         """
         data_types = []
+        deidentification_methods = []
+        attribute_characteristics = []
         is_sensitive_information = []
         identifier_remaining = False
 
@@ -168,9 +172,11 @@ class MainWindow(QMainWindow, form_class):
 
             # 데이터 성격
             attribute_characteristic = self.attributeTable.cellWidget(row_index, 2).currentText()
+            attribute_characteristics.append(attribute_characteristic)
 
             # 비식별 조치
             deidentification_method = self.attributeTable.item(row_index, 3).text()
+            deidentification_methods.append(deidentification_method)
             if attribute_characteristic == u'식별자' and deidentification_method != u'삭제':
                 identifier_remaining = True
 
@@ -189,12 +195,58 @@ class MainWindow(QMainWindow, form_class):
         self.processing_dialog = ProcessingDialog(self)
         self.processing_dialog.show()
 
+        # 모델 모수 가져오기
+        assert isinstance(self.kRadioButton, QRadioButton)
+        if self.kRadioButton.isChecked():
+            model_parameter = self.kValueBox.value()
+        elif self.lRadioButton.isChecked():
+            model_parameter = self.lValueBox.value()
+        else:
+            QMessageBox.warning(self, u'경고', u'익명화 모델을 지정해야 합니다.')
+            return
+
+        # 데이터 리빌드
+        mondrian_to_data_set_index = []
+        for record in self.input_data_set:
+            sensitive_information = []
+            for attribute_index, value, method, characteristic in enumerate(
+                    zip(record, deidentification_methods, attribute_characteristics)):
+                if characteristic == u'(속성 사용 안 함)':
+                    continue
+                if characteristic == u'민감 정보':
+                    sensitive_information.append(value)
+
+        # 속성별 트리 생성
+
+        for attribute_index, method, characteristic in enumerate(
+                zip(deidentification_methods, attribute_characteristics)):
+            attribute_tree = dict()
+            if method == u'마스킹':
+                # 길이 최댓값 구하기
+                max_length = max(self.input_data_set, key=lambda record: len(record[attribute_index]))
+
+                # 마스킹 길이 별 트리 정의
+                attribute_tree['*' * max_length] = gentree.GenTree('*' * max_length, None, False)
+                for length in xrange(1, max_length):
+                    for record in self.input_data_set:
+                        value = record[attribute_index]
+                        # 해당 값이 트리에 없는 경우 노드로 추가
+                        if value not in attribute_tree:
+                            attribute_tree[value] \
+                                = gentree.GenTree(value,
+                                                  attribute_tree[value[:length] + '*' * (max_length - length)],
+                                                  length == max_length)
+            else:
+                QMessageBox.critical(self, u'실행', u'지원되지 않는 비식별 조시 방법입니다.')
+
+        # 비식별화 실행
+        result, eval_result = anonymizer.get_result_one(trees, self.input_data_set, model_parameter)
+
         # 출력 탭으로 이동
         self.mainTab.setCurrentIndex(1)
 
         # 입력, 출력 데이터 표시
-        self.output_attributes, self.output_data_set, _ = load_csv_as_data_set(
-            os.path.join(os.path.dirname(__file__), u'example', u"의료(비식별화).csv"))
+        self.output_attributes, self.output_data_set = self.input_attributes, result
         display_data_set_on_table(self.outputTableLeft, self.input_attributes, self.input_data_set)
         display_data_set_on_table(self.outputTableRight, self.output_attributes, self.output_data_set)
 
