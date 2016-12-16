@@ -71,8 +71,11 @@
        <number>100</number>
       </property>
       <property name="columnCount">
-       <number>4</number>
+       <number>0</number>
       </property>
+      <attribute name="verticalHeaderHighlightSections">
+       <bool>true</bool>
+      </attribute>
       <row/>
       <row/>
       <row/>
@@ -173,86 +176,6 @@
       <row/>
       <row/>
       <row/>
-      <column>
-       <property name="text">
-        <string>0 단계</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>1 단계</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>2 단계</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>3 단계</string>
-       </property>
-      </column>
-      <item row="0" column="0">
-       <property name="text">
-        <string>김철수</string>
-       </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string>김철*</string>
-       </property>
-      </item>
-      <item row="0" column="2">
-       <property name="text">
-        <string>김**</string>
-       </property>
-      </item>
-      <item row="0" column="3">
-       <property name="text">
-        <string>***</string>
-       </property>
-      </item>
-      <item row="1" column="0">
-       <property name="text">
-        <string>이영희</string>
-       </property>
-      </item>
-      <item row="1" column="1">
-       <property name="text">
-        <string>이영*</string>
-       </property>
-      </item>
-      <item row="1" column="2">
-       <property name="text">
-        <string>이**</string>
-       </property>
-      </item>
-      <item row="1" column="3">
-       <property name="text">
-        <string>***</string>
-       </property>
-      </item>
-      <item row="2" column="0">
-       <property name="text">
-        <string>박지훈</string>
-       </property>
-      </item>
-      <item row="2" column="1">
-       <property name="text">
-        <string>박지*</string>
-       </property>
-      </item>
-      <item row="2" column="2">
-       <property name="text">
-        <string>박**</string>
-       </property>
-      </item>
-      <item row="2" column="3">
-       <property name="text">
-        <string>***</string>
-       </property>
-      </item>
      </widget>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
@@ -264,7 +187,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>비식별 조치 및 단계</string>
+       <string>비식별 조치 및 보기</string>
       </property>
      </widget>
      <widget class="QSpinBox" name="kValueBox">
@@ -525,7 +448,7 @@
        </font>
       </property>
       <property name="text">
-       <string>30 %</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="label_8">
@@ -546,7 +469,7 @@
        <string>위험 수준:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_9">
+     <widget class="QLabel" name="dangerousLabel">
       <property name="geometry">
        <rect>
         <x>680</x>
@@ -581,7 +504,7 @@ color: white</string>
        <string>돌아가기</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_10">
+     <widget class="QLabel" name="riskCommentLabel">
       <property name="geometry">
        <rect>
         <x>680</x>
@@ -596,7 +519,7 @@ color: white</string>
        </font>
       </property>
       <property name="text">
-       <string>적절한 설정을 사용하여 다시 비식별화하십시오.</string>
+       <string/>
       </property>
      </widget>
      <widget class="QTableWidget" name="outputTableRight">
@@ -681,7 +604,7 @@ color: white</string>
        <string>출력 데이터</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="riskButton">
       <property name="geometry">
        <rect>
         <x>150</x>
@@ -694,6 +617,54 @@ color: white</string>
        <string>재식별 위험 평가</string>
       </property>
      </widget>
+     <widget class="QLabel" name="warningLabel">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>730</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: yellow</string>
+      </property>
+      <property name="text">
+       <string>경고.</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fineLabel">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>730</y>
+        <width>41</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #00ffcc</string>
+      </property>
+      <property name="text">
+       <string>양호.</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -703,7 +674,7 @@ color: white</string>
      <x>0</x>
      <y>0</y>
      <width>1266</width>
-     <height>31</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

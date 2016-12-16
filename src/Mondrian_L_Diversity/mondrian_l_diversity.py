@@ -341,14 +341,9 @@ def mondrian_l_diversity(attribute_trees, data, l_value, nubmer_of_quasy_idnetif
     result = []
     whole_qi_attributes = []
     for i in range(NUMBER_OF_QUASI_IDENTIFIER):
-        if IS_CATEGORICAL[i] is False:
-            QUASI_IDENTIFIER_RANGE.append(ATTRIBUTE_TREES[i].range)
-            whole_qi_attributes.append((0, len(ATTRIBUTE_TREES[i].sort_value) - 1))
-            middle.append(ATTRIBUTE_TREES[i].value)
-        else:
-            QUASI_IDENTIFIER_RANGE.append(len(ATTRIBUTE_TREES[i]['*']))
-            whole_qi_attributes.append(len(ATTRIBUTE_TREES[i]['*']))
-            middle.append('*')
+        QUASI_IDENTIFIER_RANGE.append(len(ATTRIBUTE_TREES[i]['*']))
+        whole_qi_attributes.append(len(ATTRIBUTE_TREES[i]['*']))
+        middle.append('*')
     whole_partition = Partition(data, whole_qi_attributes, middle)
     start_time = time.time()
     anonymize(whole_partition)

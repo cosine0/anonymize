@@ -12,6 +12,7 @@ from level import LevelWizard
 from table import display_data_set_on_table, load_csv_as_data_set, save_data_set_as_csv
 from input_file import InputFileWizard
 from processing import ProcessingDialog
+from deidentification_methods import mask
 from risk import risk
 
 reload(sys)
@@ -38,9 +39,14 @@ class MainWindow(QMainWindow, form_class):
         self.output_attributes = None
         self.output_data_set = None
         self.encoding = None
+        self.risk_ratio = None
+        self.last_clicked_attribute_index = None
 
         # ui 설정
         self.setupUi(self)
+        self.fineLabel.hide()
+        self.warningLabel.hide()
+        self.dangerousLabel.hide()
 
         # 파일 메뉴 바인드
         self.actionImport.triggered.connect(self.import_clicked)
@@ -56,6 +62,9 @@ class MainWindow(QMainWindow, form_class):
         # 레벨 변경 바인드
         self.levelEditButton.clicked.connect(self.level_edit_button_clicked)
         self.level_wizard = None
+
+        # 속성 셀 클릭 바인드
+        self.attributeTable.cellClicked.connect(self.attributes_cell_clicked)
 
         # 실행 버튼 바인드
         self.runButton.clicked.connect(self.run_clicked)
@@ -75,6 +84,11 @@ class MainWindow(QMainWindow, form_class):
         # 익명화 모델 선택 토글
         self.kRadioButton.clicked.connect(self.k_radio_button_clicked)
         self.lRadioButton.clicked.connect(self.l_radio_button_clicked)
+
+        # 재식별 위험 측정 버튼 바인드
+        self.riskButton.clicked.connect(self.risk_button_clicked)
+
+        self.processing_dialog = ProcessingDialog(self)
 
     def import_clicked(self):
         """
@@ -154,49 +168,130 @@ class MainWindow(QMainWindow, form_class):
         self.level_wizard = LevelWizard(parent=self)
         self.level_wizard.show()
 
+    def attributes_cell_clicked(self, row, column):
+        """
+        속성 셀 클릭 시
+        :param row: 행
+        :param column: 열
+        """
+        self.last_clicked_attribute_index = row
+        method = self.attributeTable.item(row, 3).text()
+        if method:
+            self.levelTable.setEnabled(True)
+        else:
+            self.levelTable.setEnabled(False)
+
     def run_clicked(self):
         """
-        실행 버튼 클릭 시
+        실행 버튼 클릭 시: 사용하는 속성의 데이터만을 모은 후 비식별화한다. 
         """
-        data_types = []
-        deidentification_methods = []
-        attribute_characteristics = []
-        is_sensitive_information = []
+        if not self.input_data_set:
+            QMessageBox.critical(self, u'실행', u'입력 데이터를 가져온 후 비식별화를 실행하십시오.')
+            return
+
+        # 비식별화 시작
+        # 비식별화 - 1. 준식별자, 민감 정보 속성 파악
+        quasi_identifier_indices = []
+        methods = []
+        sensitive_information_indices = []
         identifier_remaining = False
-
-        # ui상의 속성 정보로부터 각 속성의 데이터 타입, 데이터 성격, 비식별 조치 방법 모으기
-        for row_index in xrange(self.attributeTable.rowCount()):
-            # 데이터 타입
-            attribute_datatype = self.attributeTable.cellWidget(row_index, 1).currentText()
-            data_types.append(attribute_datatype)
-
-            # 데이터 성격
-            attribute_characteristic = self.attributeTable.cellWidget(row_index, 2).currentText()
-            attribute_characteristics.append(attribute_characteristic)
-
-            # 비식별 조치
-            deidentification_method = self.attributeTable.item(row_index, 3).text()
-            deidentification_methods.append(deidentification_method)
-            if attribute_characteristic == u'식별자' and deidentification_method != u'삭제':
+        number_of_attributes = self.attributeTable.rowCount()
+        for attribute_index in xrange(number_of_attributes):
+            characteristic = self.attributeTable.cellWidget(attribute_index, 2).currentText()
+            method = self.attributeTable.item(attribute_index, 3).text()
+            if characteristic in (u'식별자', u'준식별자'):
+                quasi_identifier_indices.append(attribute_index)
+                methods.append(method)
+            elif characteristic == u'민감 정보':
+                sensitive_information_indices.append(attribute_index)
+            elif characteristic == u'식별자':
                 identifier_remaining = True
-
-            if attribute_characteristic == u'민감 정보':
-                is_sensitive_information.append(True)
-            else:
-                is_sensitive_information.append(False)
 
         # 식별자 경고
         if identifier_remaining:
-            if QMessageBox.warning(self, u'경고', u'식별자는 삭제가 권장됩니다. 그래도 계속하시겠습니까?',
+            if QMessageBox.warning(self, u'경고', u'식별자는 사용하지 않는 것이 권장됩니다. 그래도 계속하시겠습니까?',
                                    QMessageBox.Yes, QMessageBox.No) == QMessageBox.No:
                 return
 
         # 실행 중 대화상자 표시
-        self.processing_dialog = ProcessingDialog(self)
         self.processing_dialog.show()
 
+        # 비식별화 - 2. 준식별자, 민감 정보만으로 이루어진 데이터 셋 생성
+        new_data_set = []
+        for record_index, record in enumerate(self.input_data_set):
+            new_record = []
+            for attribute_index in quasi_identifier_indices:
+                new_record.append(record[attribute_index])
+
+            sensitive_information = []
+            for sensitive_information_index in sensitive_information_indices:
+                sensitive_information.append(record[sensitive_information_index])
+
+            sensitive_information.append(str(record_index))
+            new_record.append(sensitive_information)
+            new_data_set.append(new_record)
+
+        # 비식별화 - 3. 비식별 단계 트리 생성
+        attribute_trees = []
+        for attribute_index, method in enumerate(methods):
+            # 비식별 조치 방법별 트리 생성
+            if method == u'':
+                QMessageBox.warning(self, u'실행', u'모든 속성에 비식별 조치 방법 지정해야 합니다.')
+                # 실행 중 대화상자 닫기
+                self.processing_dialog.close()
+                return
+            if method == u'마스킹':
+                masking_character = u'*'
+                padding_character = u' '
+                masking_direction = u'right'
+                attribute_tree = dict()
+                # 길이 최댓값 구하기
+                max_length = max(len(record[attribute_index]) for record in self.input_data_set)
+                # 마스킹 길이 별 트리 정의
+                # 루트 노드
+                attribute_tree['*'] = gentree.GenTree('*', None, False)
+                # 깊이 1인 노드
+                for new_record in new_data_set:
+                    value = new_record[attribute_index]
+                    masked_value = mask(value, max_length, number_to_leave_alive=1, masking_character=masking_character,
+                                        padding_character=padding_character, mask_from_direction=masking_direction)
+                    # 해당 값이 트리에 없는 경우 노드로 추가
+                    if masked_value not in attribute_tree:
+                        attribute_tree[masked_value] \
+                            = gentree.GenTree(masked_value, attribute_tree['*'], 1 == len(value))
+                # 나머지 내부 노드
+                for length in xrange(1, max_length):
+                    for new_record in new_data_set:
+                        value = new_record[attribute_index]
+                        masked_value = mask(value, max_length, length, masking_character=masking_character,
+                                            padding_character=padding_character, mask_from_direction=masking_direction)
+                        # 해당 값이 트리에 없는 경우 노드로 추가
+                        if masked_value not in attribute_tree:
+                            one_more_masked_value = mask(value, max_length, length - 1,
+                                                         masking_character=masking_character,
+                                                         padding_character=padding_character,
+                                                         mask_from_direction=masking_direction)
+                            attribute_tree[masked_value] = gentree.GenTree(masked_value,
+                                                                           attribute_tree[one_more_masked_value],
+                                                                           length == len(value))
+                # 잎 노드
+                for new_record in new_data_set:
+                    value = new_record[attribute_index]
+                    # 해당 값이 트리에 없는 경우 노드로 추가
+                    if value not in attribute_tree:
+                        one_masked_value = mask(value, max_length, number_to_leave_alive=1,
+                                                masking_character=masking_character,
+                                                padding_character=padding_character,
+                                                mask_from_direction=masking_direction)
+                        attribute_tree[value] \
+                            = gentree.GenTree(value, attribute_tree[one_masked_value], True)
+                attribute_trees.append(attribute_tree)
+            else:
+                QMessageBox.critical(self, u'실행', u'지원되지 않는 비식별 조치 방법입니다.')
+                return
+
+        # 비식별화 - 4. 모델 충족 알고리즘 실행
         # 모델 모수 가져오기
-        assert isinstance(self.kRadioButton, QRadioButton)
         if self.kRadioButton.isChecked():
             model_parameter = self.kValueBox.value()
         elif self.lRadioButton.isChecked():
@@ -204,64 +299,89 @@ class MainWindow(QMainWindow, form_class):
         else:
             QMessageBox.warning(self, u'경고', u'익명화 모델을 지정해야 합니다.')
             return
+        # 탐색 알고리즘 실행
+        result_data_set, _ = anonymizer.mondrian_l_diversity(attribute_trees, new_data_set, model_parameter)
 
-        # 데이터 리빌드
-        mondrian_to_data_set_index = []
-        for record in self.input_data_set:
-            sensitive_information = []
-            for attribute_index, value, method, characteristic in enumerate(
-                    zip(record, deidentification_methods, attribute_characteristics)):
-                if characteristic == u'(속성 사용 안 함)':
-                    continue
-                if characteristic == u'민감 정보':
-                    sensitive_information.append(value)
+        # 비식별화 - 5. 결과를 표시할 수 있는 데이터 형태로 변환
+        # 인덱스 합치기
+        union_indices = []
+        for result_index, input_index in enumerate(quasi_identifier_indices):
+            union_indices.append((input_index, (u'준식별자', result_index)))
+        for sensitive_information_index, input_index in enumerate(sensitive_information_indices):
+            union_indices.append((input_index, (u'민감 정보', sensitive_information_index)))
 
-        # 속성별 트리 생성
+        union_indices.sort(key=lambda x: x[0])  # 입력 데이터 순서로 정렬
 
-        for attribute_index, method, characteristic in enumerate(
-                zip(deidentification_methods, attribute_characteristics)):
-            attribute_tree = dict()
-            if method == u'마스킹':
-                # 길이 최댓값 구하기
-                max_length = max(self.input_data_set, key=lambda record: len(record[attribute_index]))
+        self.output_attributes = []
+        self.data_types = []
+        self.is_sensitive_information = []
+        self.attribute_mapping = [None] * len(self.input_attributes)
+        for reidentification_index, (input_index, _) in enumerate(union_indices):  # 인덱스 참조, 출력 속성명 리스트 만들기
+            self.output_attributes.append(self.input_attributes[input_index])
+            data_type = self.attributeTable.cellWidget(input_index, 1).currentText()
+            self.attribute_mapping[input_index] = reidentification_index
+            self.data_types.append(data_type)
+            self.is_sensitive_information.append(input_index in sensitive_information_indices)
 
-                # 마스킹 길이 별 트리 정의
-                attribute_tree['*' * max_length] = gentree.GenTree('*' * max_length, None, False)
-                for length in xrange(1, max_length):
-                    for record in self.input_data_set:
-                        value = record[attribute_index]
-                        # 해당 값이 트리에 없는 경우 노드로 추가
-                        if value not in attribute_tree:
-                            attribute_tree[value] \
-                                = gentree.GenTree(value,
-                                                  attribute_tree[value[:length] + '*' * (max_length - length)],
-                                                  length == max_length)
-            else:
-                QMessageBox.critical(self, u'실행', u'지원되지 않는 비식별 조시 방법입니다.')
-
-        # 비식별화 실행
-        result, eval_result = anonymizer.get_result_one(trees, self.input_data_set, model_parameter)
-
-        # 출력 탭으로 이동
-        self.mainTab.setCurrentIndex(1)
+        # 출력 데이터 만들기, 이에 맞춰 입력 데이터 재배열
+        self.output_data_set = []
+        self.reordered_input_data_set = []
+        for result_record in result_data_set:
+            output_record = []
+            for input_index, (characteristic, result_index) in union_indices:
+                if characteristic == u'준식별자':
+                    output_record.append(result_record[result_index])
+                elif characteristic == u'민감 정보':
+                    output_record.append(result_record[-1][result_index])
+                else:
+                    assert False
+            self.output_data_set.append(output_record)
+            self.reordered_input_data_set.append(self.input_data_set[int(result_record[-1][-1])])
+        # 비식별화 끝
 
         # 입력, 출력 데이터 표시
-        self.output_attributes, self.output_data_set = self.input_attributes, result
-        display_data_set_on_table(self.outputTableLeft, self.input_attributes, self.input_data_set)
+        display_data_set_on_table(self.outputTableLeft, self.input_attributes, self.reordered_input_data_set)
         display_data_set_on_table(self.outputTableRight, self.output_attributes, self.output_data_set)
-
-        # 재식별 위험 측정
-        self.data_process_thread = threading.Thread(target=self.calculate_risk,
-                                                    args=(data_types, is_sensitive_information))
-        self.data_process_thread.start()
-
-    def calculate_risk(self, data_types, is_sensitive_information):
-        risk_ratio = risk(self.output_data_set, data_types, is_sensitive_information, self.input_data_set,
-                          range(len(self.input_data_set[0])))
-        self.riskPercentLabel.setText('{:.1f} %'.format(risk_ratio * 100))
 
         # 실행 중 대화상자 닫기
         self.processing_dialog.close()
+        # 출력 탭으로 이동
+        self.mainTab.setCurrentIndex(1)
+
+    def risk_button_clicked(self):
+        # 재식별 위험 측정
+        self.data_process_thread = threading.Thread(target=self.calculate_risk,
+                                                    args=(self.output_data_set, self.reordered_input_data_set,
+                                                          self.data_types, self.is_sensitive_information,
+                                                          self.attribute_mapping))
+        self.data_process_thread.start()
+        self.data_process_thread.join()
+
+        # 출력 탭에 위험도 표기
+        self.riskPercentLabel.setText(u'{:.2f} %'.format(self.risk_ratio * 100))
+        # 위험 >= 0.05 > 경고 >= 0.0004 > 양호
+        if self.risk_ratio >= 0.05:
+            self.fineLabel.hide()
+            self.warningLabel.hide()
+            self.dangerousLabel.show()
+            self.riskCommentLabel.setText(u'적절한 설정을 사용하여 다시 비식별화하십시오.')
+            QMessageBox.warning(self, u'재식별 위험 평가 결과',
+                                u'재식별 위험도: 위험\n재식별율: {:.2f} %\n적절한 설정을 사용하여 다시 비식별화하십시오.'
+                                .format(self.risk_ratio * 100))
+        elif self.risk_ratio >= 0.0004:
+            self.fineLabel.hide()
+            self.warningLabel.show()
+            self.dangerousLabel.hide()
+            self.riskCommentLabel.setText(u'약간의 재식별 위험이 있습니다.')
+        else:
+            self.fineLabel.show()
+            self.warningLabel.hide()
+            self.dangerousLabel.hide()
+            self.riskCommentLabel.setText(u'데이터의 비식별 조치가 안전합니다.')
+
+    def calculate_risk(self, output_data_set, aux_data_set, data_types, is_sensitive_information, attribute_mapping):
+        self.risk_ratio = risk(output_data_set, data_types, is_sensitive_information, aux_data_set,
+                               attribute_mapping)
 
     def return_clicked(self):
         """
@@ -287,7 +407,7 @@ class MainWindow(QMainWindow, form_class):
             characteristic_combobox = self.input_file_wizard.characteristicTable.cellWidget(attribute_index, 1)
             self.attributeTable.setCellWidget(attribute_index, 2, characteristic_combobox)
 
-            self.attributeTable.setItem(attribute_index, 3, QTableWidgetItem(u'마스킹'))
+            self.attributeTable.setItem(attribute_index, 3, QTableWidgetItem(u''))
 
         self.input_file_wizard.destroy()
         # 입력 데이터 표시

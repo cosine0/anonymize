@@ -11,6 +11,8 @@ import numpy as np
 # attribute_mapping: addtional의 각 속성이 anonymized 어느 속성에 해당하는지 인덱스의 리스트로 줌.
 # 리턴 값: 재식별 위험도 %수. float형으로.
 def risk(anonymized, data_types, is_sensitive_information, additional, attribute_mapping):
+    if not any(is_sensitive_information):
+        return 0.0
     # Transpose anonymized
     anonymized_T = np.array(anonymized)
     anonymized_T = anonymized_T.T.tolist()
@@ -62,6 +64,7 @@ def get_result(_anony_original, _matching, _is_sensitive_original):
             ratio = float(value) / float(total)
             if ratio > max_ratio:
                 max_ratio = ratio
+        print max_ratio, total
         if max_ratio >= criterion:
             count += 1
 
@@ -242,6 +245,7 @@ def sim_case(aux, record, metadata):
         return sim_num(aux, record)
     elif metadata == u'날짜':
         return sim_date(aux, record)
+    raise ValueError(u'{} 올바르지 않은 타입'.format(metadata))
 
 
 # 테스트 코드

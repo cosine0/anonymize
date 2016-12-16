@@ -30,7 +30,7 @@
      <string>비식별 조치 방법을 선택하십시오.</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="methodBox">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -120,40 +120,43 @@
    <widget class="QRadioButton" name="radioButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>130</y>
-      <width>131</width>
+      <x>120</x>
+      <y>120</y>
+      <width>221</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>한국 성씨 비율 적용</string>
+     <string>오른쪽에서 왼쪽으로</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QRadioButton" name="radioButton_2">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>150</y>
-      <width>131</width>
+      <x>120</x>
+      <y>140</y>
+      <width>221</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>균일 비율</string>
+     <string>왼쪽에서 오른쪽으로</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>110</y>
-      <width>56</width>
-      <height>12</height>
+      <x>80</x>
+      <y>80</y>
+      <width>91</width>
+      <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>성씨 비율</string>
+     <string>마스킹 방향</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -173,7 +176,59 @@
      </font>
     </property>
     <property name="text">
-     <string>휴리스틱 가명화</string>
+     <string>마스킹</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>220</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>마스킹 문자</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>220</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>*</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>250</y>
+      <width>31</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>250</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>채움 문자</string>
     </property>
    </widget>
   </widget>
